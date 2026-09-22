@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Resume Builder</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Google Font for polished typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+  <!-- CDN dependencies for export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- docx (browser bundle) for true .docx export -->
+  <script src="https://unpkg.com/docx@7.6.0/build/index.browser.js"></script>
+</head>
+<body>
+  <div class="app">
+    <a class="skip-link" href="#resumeForm">Skip to form</a>
+    <header role="banner">
+      <div class="brand">
+        <div class="brand-title">Resume Builder</div>
+      </div>
+      <div class="actions">
+        <select id="templateSelect" aria-label="Template select">
+          <option value="classic">Classic</option>
+          <option value="modern">Modern</option>
+          <option value="compact">Compact</option>
+        </select>
+        <!-- Accent palette removed -->
+        <!-- Theme selector removed -->
+        <select id="sampleSelect" aria-label="Sample presets">
+          <option value="generic">Generic</option>
+          <option value="software">Software</option>
+          <option value="design">Design</option>
+          <option value="sales">Sales</option>
+          <option value="management">Management</option>
+        </select>
+        <button id="loadSample" class="btn btn-secondary" title="Load sample data">Load Sample</button>
+        <button id="exportPdf" class="btn btn-primary">Export PDF</button>
+        <button id="exportDoc" class="btn btn-secondary">Export DOCX</button>
+        <!-- Save button removed per request -->
+        <!-- Authentication UI removed -->
+        <!-- Saved resumes UI removed -->
+      </div>
+    </header>
+
+    <main>
+      <section class="left">
+        <form id="resumeForm" aria-label="Resume editor" novalidate>
+          <fieldset>
+            <legend>Contact</legend>
+          <input name="name" placeholder="Full name" aria-label="Full name" required />
+          <input name="title" placeholder="Title (e.g., Software Engineer)" aria-label="Title" />
+          <input name="email" placeholder="Email" aria-label="Email" type="email" required />
+          <input name="phone" placeholder="Phone" aria-label="Phone" />
+          <input name="website" placeholder="Website / LinkedIn" aria-label="Website or LinkedIn" />
+          </fieldset>
+
+          <fieldset>
+            <legend>Summary</legend>
+            <textarea name="summary" rows="4" placeholder="A short professional summary"></textarea>
+          </fieldset>
+
+          <div id="sectionsContainer" role="list">
+            <fieldset class="section" data-type="education">
+              <legend>Education</legend>
+              <div class="entries" role="listbox" aria-label="Education entries"></div>
+              <div class="section-controls">
+                <button type="button" class="btn btn-secondary addEntry">Add Education</button>
+                <button type="button" class="moveUp">Move Up</button>
+                <button type="button" class="moveDown">Move Down</button>
+                <button type="button" class="removeSection">Remove</button>
+              </div>
+            </fieldset>
+
+            <fieldset class="section" data-type="experience">
+              <legend>Work Experience</legend>
+                <div class="entries" role="listbox" aria-label="Work experience entries"></div>
+              <div class="section-controls">
+                <button type="button" class="btn btn-secondary addEntry">Add Experience</button>
+                <button type="button" class="moveUp">Move Up</button>
+                <button type="button" class="moveDown">Move Down</button>
+                <button type="button" class="removeSection">Remove</button>
+              </div>
+            </fieldset>
+
+            <fieldset class="section" data-type="skills">
+              <legend>Skills</legend>
+              <div class="entries" role="listbox" aria-label="Skills entries"></div>
+              <div class="section-controls">
+                <button type="button" class="btn btn-secondary addEntry">Add Skill</button>
+                <button type="button" class="moveUp">Move Up</button>
+                <button type="button" class="moveDown">Move Down</button>
+                <button type="button" class="removeSection">Remove</button>
+              </div>
+            </fieldset>
+
+            <fieldset class="section" data-type="certifications">
+              <legend>Certifications</legend>
+              <div class="entries"></div>
+              <div class="section-controls">
+                <button type="button" class="btn btn-secondary addEntry">Add Certification</button>
+                <button type="button" class="moveUp">Move Up</button>
+                <button type="button" class="moveDown">Move Down</button>
+                <button type="button" class="removeSection">Remove</button>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="extra-controls">
+            <button type="button" id="addSection" class="btn btn-secondary">Add Custom Section</button>
+            <button type="reset" class="btn btn-ghost">Reset</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="right">
+        <div class="templates-gallery" id="templatesGallery" aria-hidden="false">
+          <!-- Thumbnails for templates will be inserted here -->
+        </div>
+        <div id="previewWrapper">
+          <div id="previewErrors" class="visually-hidden" aria-live="assertive"></div>
+          <div id="resumePreview" class="template-classic" role="region" aria-label="Live resume preview" aria-live="polite">
+            <!-- Preview content injected here -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="site-footer">
+        <div class="footer-brand">
+          <div class="brand-title">Resume Builder</div>
+          <div class="brand-tag">Made By Kartik Sadhu</div>
+        </div>
+
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <p class="contact-item"><strong>Email:</strong> <a href="mailto:kartiksofficial486@gmail.com">kartiksofficial486@gmail.com</a></p>
+          <p class="contact-item address-line"><address></address></p>
+        </div>
+
+        <div class="footer-social">
+          <h4>Connect</h4>
+          <div class="social-links">
+            <a href="https://www.linkedin.com/in/kartik-sadhu-8365b5378" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in new tab)">LinkedIn</a>
+            <a href="https://www.instagram.com/kartik_s.here" target="_blank" rel="noopener noreferrer" aria-label="Instagram (opens in new tab)">Instagram</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="legal">
+          <small>© 2025 Kartik Sadhu</small>
+          <nav class="footer-links" aria-label="Footer navigation">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Contact</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Authentication moved to separate page: auth.html -->
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+{
+  "users": [
+    {
+      "id": "u_1763564476350",
+      "name": "kartk",
+      "email": "skartik3779@gmail.com",
+      "passwordHash": "$2a$10$rW0dxij3ZKSNLwu5ualjde4FASzizR/VEovjy4/CjrrnuWZI/BC72",
+      "createdAt": "2025-11-19T15:01:16.470Z",
+      "failedAttempts": 0,
+      "lockUntil": null
+    },
+    {
+      "id": "u_1763564801375",
+      "name": "dev",
+      "email": "dfg@gmail.com",
+      "passwordHash": "$2a$10$5CBfXYMknuObaRtu2ZnHk.9G01b7pb20/AW624GL.LrVph8wHxyJq",
+      "createdAt": "2025-11-19T15:06:41.496Z",
+      "failedAttempts": 0,
+      "lockUntil": null
+    },
+    {
+      "id": "u_1763635374554",
+      "name": "smoke",
+      "email": "smoke20251120161254@example.com",
+      "passwordHash": "$2a$10$c2H3KKNKuATdUTgQp4x0SetTVfB8O4ZFCHw8hxC2ZXRloBh2HrJ.q",
+      "createdAt": "2025-11-20T10:42:54.611Z",
+      "failedAttempts": 0,
+      "lockUntil": null
+    },
+    {
+      "id": "u_1763646150553",
+      "name": "dev4",
+      "email": "dfghhhhhh@gmail.com",
+      "passwordHash": "$2a$10$7hMmuxbO3mROuctGcRcZVet4cVXwPf7Y2dmHnY.QOQX0Kh//cj17O",
+      "createdAt": "2025-11-20T13:42:30.627Z",
+      "failedAttempts": 0,
+      "lockUntil": null
+    }
+  ],
+  "resumes": [
+    {
+      "id": "r_1763637561335",
+      "userId": "u_1763564801375",
+      "name": "Jane Doe",
+      "data": {
+        "name": "Jane Doe",
+        "title": "Senior Software Engineer",
+        "email": "jane.doe@example.com",
+        "phone": "(555) 123-4567",
+        "website": "linkedin.com/in/janedoe",
+        "summary": "Experienced software engineer with a strong background in building scalable web applications. Passionate about clean code and mentoring teams.",
+        "company": "Acme Corp",
+        "role": "Senior Engineer",
+        "desc": [
+          "Led a team building a high-traffic SaaS product; improved performance by 30%.",
+          ""
+        ],
+        "school": "State University",
+        "degree": "B.S. in Computer Science",
+        "start": "",
+        "end": "",
+        "skill": [
+          "JavaScript",
+          "React",
+          "Node.js"
+        ],
+        "cert": "AWS Certified Developer",
+        "sections": [
+          {
+            "type": "experience",
+            "title": "Work Experience",
+            "items": [
+              {
+                "company": "Acme Corp",
+                "role": "Senior Engineer",
+                "desc": "Led a team building a high-traffic SaaS product; improved performance by 30%."
+              }
+            ]
+          },
+          {
+            "type": "education",
+            "title": "Education",
+            "items": [
+              {
+                "school": "State University",
+                "degree": "B.S. in Computer Science",
+                "start": "",
+                "end": "",
+                "desc": ""
+              }
+            ]
+          },
+          {
+            "type": "skills",
+            "title": "Skills",
+            "items": [
+              {
+                "skill": "JavaScript"
+              },
+              {
+                "skill": "React"
+              },
+              {
+                "skill": "Node.js"
+              }
+            ]
+          },
+          {
+            "type": "certifications",
+            "title": "Certifications",
+            "items": [
+              {
+                "cert": "AWS Certified Developer"
+              }
+            ]
+          }
+        ],
+        "contact": {
+          "name": "Jane Doe",
+          "title": "Senior Software Engineer",
+          "email": "jane.doe@example.com",
+          "phone": "(555) 123-4567",
+          "website": "linkedin.com/in/janedoe"
+        }
+      },
+      "template": "modern",
+      "createdAt": "2025-11-20T11:19:21.335Z"
+    },
+    {
+      "id": "r_1763637848877",
+      "userId": "u_1763564801375",
+      "name": "Jane Doe",
+      "data": {
+        "name": "Jane Doe",
+        "title": "Senior Software Engineer",
+        "email": "jane.doe@example.com",
+        "phone": "(555) 123-4567",
+        "website": "linkedin.com/in/janedoe",
+        "summary": "Experienced software engineer with a strong background in building scalable web applications. Passionate about clean code and mentoring teams.",
+        "company": "Acme Corp",
+        "role": "Senior Engineer",
+        "desc": [
+          "Led a team building a high-traffic SaaS product; improved performance by 30%.",
+          ""
+        ],
+        "school": "State University",
+        "degree": "B.S. in Computer Science",
+        "start": "",
+        "end": "",
+        "skill": [
+          "JavaScript",
+          "React",
+          "Node.js"
+        ],
+        "cert": "AWS Certified Developer",
+        "sections": [
+          {
+            "type": "experience",
+            "title": "Work Experience",
+            "items": [
+              {
+                "company": "Acme Corp",
+                "role": "Senior Engineer",
+                "desc": "Led a team building a high-traffic SaaS product; improved performance by 30%."
+              }
+            ]
+          },
+          {
+            "type": "education",
+            "title": "Education",
+            "items": [
+              {
+                "school": "State University",
+                "degree": "B.S. in Computer Science",
+                "start": "",
+                "end": "",
+                "desc": ""
+              }
+            ]
+          },
+          {
+            "type": "skills",
+            "title": "Skills",
+            "items": [
+              {
+                "skill": "JavaScript"
+              },
+              {
+                "skill": "React"
+              },
+              {
+                "skill": "Node.js"
+              }
+            ]
+          },
+          {
+            "type": "certifications",
+            "title": "Certifications",
+            "items": [
+              {
+                "cert": "AWS Certified Developer"
+              }
+            ]
+          }
+        ],
+        "contact": {
+          "name": "Jane Doe",
+          "title": "Senior Software Engineer",
+          "email": "jane.doe@example.com",
+          "phone": "(555) 123-4567",
+          "website": "linkedin.com/in/janedoe"
+        }
+      },
+      "template": "modern",
+      "createdAt": "2025-11-20T11:24:08.877Z"
+    }
+  ]
+}
