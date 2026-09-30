@@ -1,137 +1,401 @@
-# Resume Builder
+# Resume Builder - Azure Cloud Deployment
 
-A lightweight, browser-based resume editor with a live preview and export tools. The frontend uses plain HTML, CSS, and JavaScript. An optional Node.js and Express backend serves the app, creates DOCX files, and exposes authenticated resume-storage endpoints.
+A full-stack web-based Resume Builder application built with **HTML, CSS, JavaScript, Node.js, and Express.js**, with hands-on deployment to **Microsoft Azure App Service** and automated **GitHub Actions CI/CD**.
 
-## Features
+The project demonstrates a practical cloud deployment workflow from source code in GitHub to a Linux-based Azure App Service.
 
-- Live resume preview while editing
-- Classic, modern, and compact templates
-- Sample presets for generic, software, design, sales, and management resumes
-- Contact details, summary, education, work experience, skills, certifications, and custom sections
-- Add, remove, and reorder sections and entries
-- Drag-and-drop entry ordering plus keyboard ordering with `Ctrl` or `Cmd` + `Arrow Up/Down`
-- Responsive editor and preview layout
-- Client-side PDF export
-- DOCX export in the browser, with a server-side fallback when the backend is running
-- Basic form validation and accessible labels, announcements, and skip navigation
+---
 
-## Quick Start
+## Project Overview
 
-### Requirements
+Resume Builder allows users to create and manage professional resumes through a web interface.
 
-- Node.js 18 or newer
+The application includes:
+
+- User registration and login
+- Password hashing
+- JWT-based authentication
+- Resume creation and management
+- Resume editing and deletion through authenticated API routes
+- Resume data storage
+- DOCX resume export
+- Responsive frontend
+- Express.js backend
+- Azure App Service deployment
+- Automated GitHub Actions CI/CD
+
+---
+
+## Cloud and DevOps Implementation
+
+This project was deployed hands-on using **Microsoft Azure App Service**.
+
+### Deployment flow
+
+```text
+Developer
+   |
+   v
+GitHub Repository
+   |
+   | Push to main
+   v
+GitHub Actions
+   |
+   |- Checkout source code
+   |- Setup Node.js 24
+   |- Install backend dependencies
+   |- Build / test backend when scripts are available
+   |- Upload application artifact
+   |- Authenticate with Azure using OIDC
+   |- Deploy application
+   |
+   v
+Microsoft Azure App Service
+   |
+   v
+Node.js + Express Application
+```
+
+### Azure services and technologies used
+
+- Microsoft Azure
+- Azure App Service
+- Azure App Service Plan
+- Azure Portal
+- Linux
+- Node.js 24 LTS
+- GitHub Actions
+- GitHub OIDC authentication
+- CI/CD
+- YAML workflow configuration
+
+---
+
+## Tech Stack
+
+### Frontend
+
+- HTML5
+- CSS3
+- JavaScript
+
+### Backend
+
+- Node.js
+- Express.js
+- REST API
 - npm
-- A modern browser with JavaScript enabled
 
-### Run the application
+### Authentication and Security
 
-From the repository root:
+- JWT
+- bcryptjs
+- Helmet
+- CORS
+- Express Rate Limit
+- Express Validator
+- Environment variables
 
-```bash
-cd backend
-npm install
-npm start
-```
+### Data and Document Processing
 
-Open [http://localhost:4000](http://localhost:4000) in a browser. The Express server serves the files in `public/`, so no separate frontend server or build command is required.
+- JSON-based local data storage
+- DOCX generation
+- `docx`
+- `jsdom`
 
-To use a different port on Windows PowerShell:
+### Cloud and DevOps
 
-```powershell
-$env:PORT = "5000"
-npm start
-```
+- Microsoft Azure App Service
+- Azure Linux
+- GitHub
+- GitHub Actions
+- YAML
+- Git
 
-Then open `http://localhost:5000`.
-
-## Using the Editor
-
-1. Enter the required full name and email address.
-2. Fill in the summary and the sections that apply to your experience.
-3. Use **Add Education**, **Add Experience**, **Add Skill**, or **Add Certification** to add entries.
-4. Use **Add Custom Section** for projects, achievements, awards, publications, or another category.
-5. Choose a template from the selector or click a template preview.
-6. Use **Load Sample** to inspect a preset or start from example content.
-7. Export the finished resume as PDF or DOCX.
-
-The editor updates the preview as you type. Empty entries are ignored in the preview, but invalid required fields are highlighted when an export is attempted.
+---
 
 ## Project Structure
 
 ```text
-.
-├── backend/
-│   ├── db.json       # Local JSON data store for users and saved resumes
-│   ├── package.json  # Backend dependencies and npm scripts
-│   └── server.js     # Express server and API routes
-├── public/
-│   ├── app.js        # Form state, preview rendering, and exports
-│   ├── index.html    # Application markup
-│   └── styles.css    # Editor, preview, and template styles
-└── README.md
+resume-builder/
+|
+|- backend/
+|  |- db.json
+|  |- package.json
+|  |- package-lock.json
+|  `- server.js
+|
+|- public/
+|  |- index.html
+|  |- app.js
+|  `- styles.css
+|
+|- .github/
+|  `- workflows/
+|     `- main_resumebuilder-cloud-2026.yml
+|
+|- .gitignore
+`- README.md
 ```
 
-## Backend Configuration
+---
 
-The backend reads environment variables from `backend/.env` through `dotenv`:
+## Local Installation
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Kartik1234584/resume-builder.git
+cd resume-builder
+```
+
+### 2. Install backend dependencies
+
+```bash
+cd backend
+npm install
+```
+
+### 3. Configure environment variables
+
+Create a `.env` file inside the `backend` directory:
 
 ```env
+JWT_SECRET=your_secure_secret_key
 PORT=4000
-JWT_SECRET=replace-this-with-a-long-random-secret
 ```
 
-`PORT` defaults to `4000`. `JWT_SECRET` currently falls back to a development value when it is missing, but a strong secret is required for any shared or production deployment.
+Do not commit the `.env` file to GitHub. The project `.gitignore` excludes `.env` and `node_modules/`.
 
-The backend writes users and resumes to `backend/db.json`. This is a simple local data store intended for development and demonstrations, not concurrent production workloads. Back up the file before deleting or resetting local data, and never commit real user data or secrets.
+### 4. Start the application
 
-## API Reference
+From the `backend` directory:
 
-All API routes are served from the same origin when the application is started with `npm start`.
-
-| Method | Route | Authentication | Purpose |
-| --- | --- | --- | --- |
-| `POST` | `/api/register` | No | Create an account. Passwords must be at least 8 characters. |
-| `POST` | `/api/login` | No | Authenticate and receive a 7-day JWT. |
-| `GET` | `/api/me` | Bearer token | Return the current user. |
-| `POST` | `/api/export/docx` | No | Convert submitted resume HTML into a DOCX download. |
-| `POST` | `/api/resumes` | Bearer token | Save a resume for the authenticated user. |
-| `GET` | `/api/resumes` | Bearer token | List the authenticated user's saved resumes. |
-| `DELETE` | `/api/resumes/:id` | Bearer token | Delete one of the authenticated user's resumes. |
-
-Authenticated requests use:
-
-```http
-Authorization: Bearer <jwt>
+```bash
+npm start
 ```
 
-The visible editor currently focuses on creating and exporting resumes; authentication and saved-resume controls are not displayed in `public/index.html`. The API remains available for clients that implement those flows.
+Open `http://localhost:4000`. The Express server serves the `public` directory, so the frontend and backend are available through the same application.
 
-## Export Notes
+---
 
-- **PDF** is rendered in the browser with `html2canvas` and `jsPDF`, loaded from CDN links in `public/index.html`.
-- **DOCX** uses the browser `docx` bundle when it is available.
-- If the browser bundle is unavailable and the backend is running, the app attempts `POST /api/export/docx`.
-- If neither DOCX path is available, the app falls back to a Word-compatible `.doc` download.
-- Export libraries and fonts require network access because they are loaded from CDNs.
+## Authentication
 
-## Development Notes
+The backend implements authentication using:
 
-There is currently no automated test suite, lint configuration, or frontend package manifest. For a quick smoke test after starting the server:
+- User registration
+- Password hashing with `bcryptjs`
+- JWT authentication
+- Protected API routes
+- Input validation
+- Authentication rate limiting
 
-1. Load the page and confirm the editor and preview appear.
-2. Load each sample preset and switch between all three templates.
-3. Add and reorder a custom section.
-4. Export a PDF and a DOCX.
-5. Confirm that invalid required fields prevent export.
+A production deployment should use a strong secret stored securely in Azure App Service configuration rather than placing secrets in source code.
 
-## Security Considerations
+---
 
-- Set `JWT_SECRET` before deploying anywhere beyond local development.
-- Keep `backend/db.json` private; it contains password hashes and resume data.
-- Use HTTPS in production.
-- Review the permissive CORS configuration before exposing the API publicly.
-- Replace the JSON file with a transactional database before supporting multiple concurrent users or deployments with more than one server instance.
+## CI/CD with GitHub Actions
 
-## License
+The workflow is triggered when changes are pushed to the `main` branch. It can also be started manually with `workflow_dispatch`.
 
-No license has been specified for this project.
+### Pipeline stages
+
+```text
+GitHub Push
+     |
+     v
+Checkout Repository
+     |
+     v
+Setup Node.js 24
+     |
+     v
+Install Backend Dependencies
+     |
+     v
+Build / Test when available
+     |
+     v
+Upload Application Artifact
+     |
+     v
+Authenticate with Azure using OIDC
+     |
+     v
+Deploy to Azure App Service
+     |
+     v
+Start Node.js Application
+```
+
+The workflow uses Azure authentication through GitHub's OpenID Connect (OIDC) mechanism. The deployed application uses the backend server as its startup process:
+
+```text
+node backend/server.js
+```
+
+---
+
+## Testing the Application
+
+### Local testing
+
+```bash
+cd backend
+npm start
+```
+
+Then open `http://localhost:4000` and verify the editor, live preview, templates, sample presets, entry ordering, and PDF/DOCX exports.
+
+The current backend has no dedicated `build` or `test` scripts, so the GitHub Actions workflow runs those commands only when scripts are added.
+
+### Deployment testing
+
+After a successful GitHub Actions deployment, open the Azure App Service from the Azure Portal using the **Browse** option and verify that the application loads.
+
+---
+
+## Security Practices
+
+The project includes several basic security measures:
+
+- Password hashing using bcrypt
+- JWT authentication
+- Helmet security headers
+- CORS configuration
+- Rate limiting
+- Request validation
+- Environment variables for secrets
+- `.gitignore` for sensitive files
+
+Never commit `.env`, passwords, API keys, JWT secrets, Azure credentials, or other sensitive information to GitHub.
+
+---
+
+## Cloud Architecture
+
+```text
+                    +---------------------+
+                    |      Developer      |
+                    +----------+----------+
+                               |
+                               | Git Push
+                               v
+                    +---------------------+
+                    |       GitHub        |
+                    |   Source Repository |
+                    +----------+----------+
+                               |
+                               v
+                    +---------------------+
+                    |   GitHub Actions    |
+                    |       CI/CD         |
+                    +----------+----------+
+                               |
+                               | OIDC
+                               v
+                    +---------------------+
+                    |   Azure App Service |
+                    |       Linux         |
+                    +----------+----------+
+                               |
+                               v
+                    +---------------------+
+                    | Node.js + Express   |
+                    |    Resume Builder   |
+                    +---------------------+
+```
+
+---
+
+## Repository
+
+**GitHub:** [https://github.com/Kartik1234584/resume-builder](https://github.com/Kartik1234584/resume-builder)
+
+The Azure resources used for the hands-on deployment were created for project demonstration and may not remain continuously hosted.
+
+---
+
+## Project Documentation
+
+The project includes hands-on documentation of:
+
+- Azure Web App creation
+- Azure App Service Plan configuration
+- Linux App Service setup
+- GitHub repository integration
+- GitHub Actions configuration
+- CI/CD workflow execution
+- Successful Azure deployment
+- Azure Deployment Center
+- Application deployment verification
+
+---
+
+## Learning Outcomes
+
+Through this project, I gained practical experience with:
+
+- Creating and configuring Azure App Service
+- Deploying Node.js applications to Azure
+- Working with Linux-based App Service
+- Connecting GitHub with Azure
+- Creating and modifying GitHub Actions workflows
+- Implementing CI/CD
+- Configuring Azure deployment authentication
+- Troubleshooting GitHub Actions build failures
+- Configuring Node.js startup commands
+- Managing application configuration and environment variables
+- Understanding the relationship between source control, CI/CD, and cloud deployment
+
+---
+
+## Storage Note
+
+This project uses a JSON file for demonstration-level data storage.
+
+For a production application, persistent cloud storage or a managed database such as **Azure Database for MySQL**, **Azure SQL**, or another appropriate database service should be used. The current JSON-based approach is intended for learning and project demonstration rather than production-scale data persistence.
+
+---
+
+## Future Improvements
+
+Possible future improvements include:
+
+- Replace JSON storage with a managed database
+- Add Azure Blob Storage for document storage
+- Add Azure Key Vault for secrets
+- Add custom domain and HTTPS configuration
+- Add automated unit and integration tests
+- Add monitoring and logging
+- Add Docker-based deployment
+- Add infrastructure as code using Terraform
+- Add staging and production environments
+- Improve resume templates and PDF export
+- Add cloud-based persistent storage
+
+---
+
+## Author
+
+**Kartik Sadhu**
+
+MCA - Cloud Computing
+
+### Technologies
+
+`Microsoft Azure` `Azure App Service` `GitHub Actions` `CI/CD` `Node.js` `Express.js` `JavaScript` `HTML` `CSS` `Git` `GitHub`
+
+---
+
+## Project Highlights
+
+- Full-stack web application
+- Hands-on Microsoft Azure deployment
+- Linux-based Azure App Service
+- GitHub Actions CI/CD
+- Automated cloud deployment
+- Node.js + Express backend
+- Authentication and security features
+- Practical cloud engineering workflow
